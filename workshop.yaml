@@ -1,0 +1,26 @@
+name: reasonix-dev
+base: ubuntu@24.04
+sdks:
+  - name: try-deepseek-reasonix
+    plugs:
+       shared:
+         interface: mount
+         workshop-target: /home/workshop/shared
+  - name: system
+    plugs:
+      deepseek-api:
+        interface: tunnel
+        endpoint: 8443/tcp
+
+connections:
+  - plug: system:deepseek-api
+    slot: deepseek-reasonix:api-connectivity
+
+
+actions:
+  ask: |
+    dsnix ask "$@"
+  code: |
+    dsnix code "$@"
+  help: |
+    dsnix --help
