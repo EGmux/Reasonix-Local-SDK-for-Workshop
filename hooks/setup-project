@@ -1,0 +1,21 @@
+#!/bin/bash
+# setup-project — deepseek-reasonix SDK
+# Runs as the workshop user in the /project/ directory.
+# Installs the AI agent globally via npm and ensures the
+# persistent cache storage folder exists.  The reasonix
+# package also drops the "dsnix" shim on PATH.
+
+set -euo pipefail
+
+echo "=== deepseek-reasonix: setup-project hook ==="
+
+# 1. Install the AI agent globally
+#    reasonix v0.52.0+ provides both "reasonix" and "dsnix" bin entries.
+echo "[1/2] Installing reasonix via npm..."
+sudo npm install -g reasonix
+
+# 2. Create the persistent cache storage folder
+echo "[2/2] Creating cache directory..."
+mkdir -p /home/workshop/.cache/reasonix
+
+echo "=== setup-project complete ==="

@@ -1,0 +1,30 @@
+name: deepseek-reasonix
+version: "1.0.0"
+summary: Context-aware AI coding agent powered by DeepSeek
+description: |
+  This SDK provisions the DeepSeek-Reasonix AI coding agent (and its short
+  alias dsnix) into a workspace. It handles installing the Node.js 22 LTS
+  runtime layer automatically as an internal dependency.
+license: MIT
+build-base: ubuntu@24.04
+platforms:
+  amd64:
+
+parts:
+  node-installer:
+    plugin: nil
+    build-packages:
+      - curl
+      - git
+    override-build: |
+      mkdir -p $CRAFT_PART_INSTALL/bin
+
+plugs:
+  agent-cache:
+    interface: mount
+    workshop-target: /home/workshop/.cache/reasonix
+
+slots:
+  api-connectivity:
+    interface: tunnel
+    endpoint: 443/tcp
